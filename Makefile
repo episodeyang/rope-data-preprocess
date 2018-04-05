@@ -41,8 +41,7 @@ generate-info-rope:
 	# on data instance
 	source activate caffe_p35 && python read_demo.py
 zip-info-rope:
-	# on data instance
-	cd ../ && \
+	# on data instance, inside datasets folder
 	tar -zcvf causal-infogan-rope.tar.gz causal-infogan-rope
 unzip-info-rope:
 	# on your local computer, where you downloaded the data
