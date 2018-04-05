@@ -1,0 +1,6 @@
+# JetBrains IDE
+.idea
+
+# ignore all of the data folders
+test
+train
