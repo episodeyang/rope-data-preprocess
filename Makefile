@@ -35,3 +35,15 @@ start-display:
 	Xvfb :1 -screen 0 800x1100x24 +extension RANDR &
 start-vnc:
 	sudo x11vnc -ncache -rfbport $(VNC_PORT) -rfbauth /tmp/vncpass -display :1 -forever -auth /tmp/xvfb.auth
+
+
+generate-info-rope:
+	# on data instance
+	source activate caffe_p35 && python read_demo.py
+zip-info-rope:
+	# on data instance
+	cd ../ && \
+	tar -zcvf causal-infogan-rope.tar.gz causal-infogan-rope
+unzip-info-rope:
+	# on your local computer, where you downloaded the data
+	tar -zxvf causal-infogan-rope.tar.gz
