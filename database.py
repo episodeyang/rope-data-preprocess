@@ -1,3 +1,5 @@
+import time
+
 import cv2
 import lmdb
 import caffe
@@ -56,14 +58,11 @@ class ImageLMDB(object):
     def get_num_elements(self):
         return int(self.DB.stat()['entries'])
 
-    def play(self, millis=20, transpose=True, start=0, end=0, key=0):
-        cv2.namedWindow(self.name)
+    def play(self, delay=0.020, transpose=True, start=0, end=0, key=0):
+        import matplotlib.pyplot as plt
         img_size = None
         with self.DB.begin() as txn:
             cursor = txn.cursor()
-            # print("got here")
-            # label = '{:08}'.format(start).encode('ascii')
-            # cursor.set_key(label)
             if start:
                 for _ in range(start):
                     cursor.next()
@@ -84,8 +83,9 @@ class ImageLMDB(object):
                     img_size = img.shape
                 if transpose:
                     img = img.transpose()
-                cv2.imshow(self.name, img)
-                cv2.waitKey(millis)
+                plt.imshow(img)
+                plt.show()
+                time.sleep(delay)
         return img_size
 
     def info(self):
@@ -168,10 +168,10 @@ class SensorLMDB(object):
 #     db.play()
 
 if __name__ == "__main__":
-    dir = "train/image_after"
+    dir = "test/image_after"
     db = ImageLMDB(dir)
     db.info()
-    db.play(40)
+    db.play(1.0)
 
     # vel_db = SensorLMDB("/home/ashvin/data/poke/")
     # pos_db = SensorLMDB("/home/ashvin/data/poke/positions")

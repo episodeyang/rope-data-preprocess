@@ -1,2 +1,4 @@
-lmdb
+matplotlib
+python-lmdb
 opencv
+tqdm
